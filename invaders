@@ -6,6 +6,7 @@ TITLE SPACE-INVADERS
 MensagemTelaInicio DB 'Space Invaders'
 MensagemTelaInicio2 DB '1)Novo Jogo'
 MensagemTelaInicio3 DB '2)SAIR'
+MensagemDigitoErrado DB 'Digito Invalido'
              
 
 .CODE
@@ -17,7 +18,7 @@ MOV ES,AX; Prepara para printar pelo 10h
 MOV AH,0
 MOV AL,13H
 INT 10h; Esse modo de tela deixa a dela 320x200
-Inicio_Space_Invaders:
+Tela_Inicio:
 	MOV AX, 1300H
 	MOV BH,0
 	MOV BL,0010b
@@ -49,9 +50,25 @@ Inicio_Space_Invaders:
 	MOV AH,1
 	INT 21H
 	
-
-MOV AH,4CH
-INT 21H
+	CMP Al,1
+	JE Inicio_Jogo
+	CMP AL,2
+	JE Sair
+	
+	MOV AX,1300H
+	MOV BH,0
+	MOV BL , 1100b
+	MOV DL , 13
+	MOV DH , 20
+	MOV CX , 15
+	LEA BP, MensagemDigitoErrado
+	INT 10H
+	JMP Tela_inicio
+Sair:
+	MOV AH,4CH
+	INT 21H
+	
+Inicio_Jogo:
 
 
 
