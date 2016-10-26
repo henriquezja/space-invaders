@@ -3,11 +3,60 @@ TITLE SPACE-INVADERS
 .STACK 100H
 .DATA
 
+MensagemTelaInicio DB 'Space Invaders'
+MensagemTelaInicio2 DB '1)Novo Jogo'
+MensagemTelaInicio3 DB '2)SAIR'
+             
+
 .CODE
-PROC MAIN
+MAIN PROC
+MOV AX,@DATA
+MOV DS,AX
+MOV ES,AX; Prepara para printar pelo 10h
+
+MOV AH,0
+MOV AL,13H
+INT 10h; Esse modo de tela deixa a dela 320x200
+Inicio_Space_Invaders:
+	MOV AX, 1300H
+	MOV BH,0
+	MOV BL,0010b
+	MOV DL, 13
+	MOV DH , 10
+	MOV CX,14
+	LEA BP,MensagemTelaInicio
+	INT 10H; Serve para printar uma mensagem na tela
+
+	MOV AX,1300H
+	MOV BH,0
+	MOV BL,1100b
+	MOV DL,14
+	MOV DH,12
+	MOV CX,11
+	LEA BP,MensagemTelaInicio2
+	INT 10H
+
+	MOV AX,1300H
+	MOV BH,0
+	MOV BL, 1100b
+	MOV DL , 14
+	MOV DH, 14
+	MOV CX , 6
+	LEA BP, MensagemTelaInicio3
+	INT 10H
+
+
+	MOV AH,1
+	INT 21H
+	
+
+MOV AH,4CH
+INT 21H
 
 
 
 
-ENDP MAIN
+
+
+MAIN ENDP
 END MAIN
