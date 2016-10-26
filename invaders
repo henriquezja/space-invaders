@@ -7,6 +7,7 @@ MensagemTelaInicio DB 'Space Invaders'
 MensagemTelaInicio2 DB '1)Novo Jogo'
 MensagemTelaInicio3 DB '2)SAIR'
 MensagemDigitoErrado DB 'Digito Invalido'
+COMP1 DB 0
              
 
 .CODE
@@ -50,11 +51,14 @@ Tela_Inicio:
 	MOV AH,1
 	INT 21H
 	
-	CMP Al,1
+	MOV COMP1,AL;manda oq o usuario digitou para comp1
+	
+	CMP COMP1,'1'
 	JE Inicio_Jogo
-	CMP AL,2
+	CMP COMP1,'2'
 	JE Sair
 	
+	CALL CLEAN_SCREEN
 	MOV AX,1300H
 	MOV BH,0
 	MOV BL , 1100b
@@ -65,10 +69,15 @@ Tela_Inicio:
 	INT 10H
 	JMP Tela_inicio
 Sair:
+CALL CLEAN_SCREEN
+	MOV AH,0
+	MOV AL,3
+	INT 10H
 	MOV AH,4CH
 	INT 21H
 	
 Inicio_Jogo:
+CALL CLEAN_SCREEN
 
 
 
@@ -76,4 +85,12 @@ Inicio_Jogo:
 
 
 MAIN ENDP
+PROC CLEAN_SCREEN
+MOV AH, 0FH ; function - get video mode
+INT 10h
+MOV AH, 0 ; function - set video mode
+MOV AL, 13H
+INT 10h
+RET
+ENDP CLEAN_SCREEN
 END MAIN
