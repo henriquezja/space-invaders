@@ -81,14 +81,14 @@ START:
 	MOV AX,ALIEN1SIZEX
 	DIV SI;para ver se a posição do vetor é multipla do tamanho da linha.
 	
-	CMP DX,0;compara o resto
+        CMP SI,418
+        JE END_PRINT_ALIEN1
+
+        CMP DX,0;compara o resto
 	JE PART2
 	
 	CMP ALIEN1[SI],0
 	JE START
-	
-	CMP SI,200
-	JE END_PRINT_ALIEN1
 	
 	MOV AH,0cH;comando para printar um pixel
 	MOV AL , 1001b;cor
