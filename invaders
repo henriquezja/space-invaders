@@ -2,47 +2,7 @@ TITLE SPACE-INVADERS
 .MODEL SMALL
 .STACK 100H
 .DATA
-ALIEN1  DB 0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
-		DB 0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
-		DB 0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
-		DB 0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
-        DB 0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0
-        DB 0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0
-        DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0
-        DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0
-        DB 0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,0
-        DB 0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,0
-        DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-        DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-        DB 1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
-        DB 1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
-        DB 1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1
-        DB 1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1
-        DB 1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1
-        DB 0,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0
-        DB 0,0,0,0,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0
-	
-Alien2	DB '0000001111000000'    
-		DB '0000001111000000'
-		DB '0000111111110000'
-		DB '0000111111110000'
-		DB '0011111111111100'
-		DB '0011111111111100'
-		DB '1111001111001111'								
-		DB '1111001111001111'				;cogumelo
-		DB '1111111111111111'
-		DB '1111111111111111'
-		DB '0000110000110000'
-		DB '0000110000110000'
-		DB '0011001111001100'
-		DB '0011001111001100'
-		DB '1100110000110011'
-		DB '1100110000110011'
-
-
-
-
-Alien3	DB '000000001111111100000000'
+ALIEN1  DB '000000001111111100000000'
 		DB '000000001111111100000000'
 		DB '001111111111111111111100'
 		DB '001111111111111111111100'
@@ -59,69 +19,73 @@ Alien3	DB '000000001111111100000000'
 		DB '000011110000000011110000'
 		DB '000011110000000011110000'
 	
-	
-ALIEN1SIZEX DW 22
-AlIEN1SIZEY DW 19
-ALIEN1X DW 0
-ALIEN1Y DW	0
+ALIEN1SIZEX DW 24 ; largura
+AlIEN1SIZEY DW 16  ; altura
+ALIEN1X DW 0 ; posicao no eixo x
+ALIEN1Y DW	0 ; posicao no eixo y
+ALIEN1Y_INICIO DW	0 ; posicao inicial do eixo y
+ALIEN1X_INICIO DW 0,40,80,120, 160 ; posicao inicial de cada alien
+CONTADOR_ALIEN DW 5 ; contadador de alien
+I_ALIEN DW 0  ; indice de ALIENX1X_INICIO
+
 .CODE
 PROC MAIN
 MOV AX, @DATA
 MOV DS , AX
 
+; modo de tela
 MOV AH,0
 MOV AL,13H
 INT 10H
+;;;;;;;;;;;;;;
+CONT_ALIEN:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
 
-MOV SI,-1
-MOV ALIEN1X,1
-MOV ALIEN1Y,1
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
 START:
-	INC SI
-	MOV AX,ALIEN1SIZEX
-	DIV SI;para ver se a posição do vetor é multipla do tamanho da linha.
-	
-        CMP SI,418
-        JE END_PRINT_ALIEN1
 
-        CMP DX,0;compara o resto
-	JE PART2
-	
-	CMP ALIEN1[SI],0
-	JE START
-	
-	MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1001b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1Y;coordenadas coluna
-	MOV DX, ALIEN1X;coordenadas linha
-	INT 10H;interrupção
-	INC ALIEN1X
-	
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIEN1SIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2 ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME:
+	CMP SI,418 ; eh final?
+	JG CONTADOR_FINAL 
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL END_PRINT_ALIEN1
+	;;;;
+	CMP ALIEN1[SI],'1' ; na matriz de desenho tem 1?
+	JE PRINTAALIENS
+	JMP START
+	PRINTAALIENS:
+	CALL PRINTA	
 JMP START
 PART2:
-INC ALIEN1Y
-MOV ALIEN1X,0; zera a cordenanda o do alien para 0 pois acabou a linha anterior
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, ALIEN1X_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME 
 
-	MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1001b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	INT 10H;interrupção
-	INC ALIEN1X
+CONTADOR_FINAL:
+JMP CONT_ALIEN
+;;;;;;;;;;;;;;;;;;;;;;
 
-JMP START
-END_PRINT_ALIEN1:
-	CMP ALIEN1[SI],0
-	JE END2_PRINT_ALIEN1
-	MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1001b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	INT 10H;interrupção
-END2_PRINT_ALIEN1:	
+END_PRINT_ALIEN1:	
 	MOV AH,1h
 	INT 21H
 	
@@ -135,4 +99,15 @@ END2_PRINT_ALIEN1:
 
 
 ENDP MAIN
+
+PRINTA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1001b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN1Y_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA ENDP
 END MAIN
