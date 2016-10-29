@@ -62,6 +62,40 @@ ALIEN3	DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0
 		DB 0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0		
 		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		
+NAVE  	DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0
+		DB 0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0
+		DB 0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0    ;nave
+		DB 0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0
+		DB 0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0
+		
+CORACAO DB 0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,0,0
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0
+		DB 0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0    ;muro
+		DB 0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0
+		DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0
+		DB 0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0
+		DB 0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
 	
 ALIENSIZEX DW 24 ; largura
 AlIEN1SIZEY DW 19  ; altura
@@ -70,7 +104,10 @@ ALIEN1Y DW	0 ; posicao no eixo y
 ALIEN1Y_INICIO DW	20 ; posicao inicial do eixo y
 ALIEN2Y_INICIO DW 45; posicao inicial do eixo y alien2
 ALIEN3Y_INICIO DW  70; posicao inicial do eixo y alien3
+NAVEY_INICIO DW 170
+NAVEX_INICIO DW 145
 ALIEN1X_INICIO DW 0,40,80,120, 160 ; posicao inicial de cada alien
+CORACAOX_INICIO DW 230,260,290
 CONTADOR_ALIEN DW 5 ; contadador de alien
 I_ALIEN DW 0  ; indice de ALIENX1X_INICIO
 
@@ -129,6 +166,11 @@ JMP IMPRIME
 
 CONTADOR_FINAL:
 JMP CONT_ALIEN
+
+
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;
 NEXTALIEN:
 MOV CONTADOR_ALIEN,5;
@@ -178,6 +220,10 @@ JMP IMPRIME2
 
 CONTADOR_FINAL2:
 JMP CONT_ALIEN2
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 NEXTALIEN2:
 MOV CONTADOR_ALIEN,5;
 MOV I_ALIEN,0;
@@ -205,7 +251,7 @@ START3:
 	CMP SI,460 ; eh final?
 	JG CONTADOR_FINAL3
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL FIM_PRINTS
+	JL NEXTPRINT
 	;;;;
 	CMP ALIEN3[SI], 1 ; na matriz de desenho tem 1?
 	JE PRINTAALIENS3
@@ -226,11 +272,106 @@ JMP IMPRIME3
 
 CONTADOR_FINAL3:
 JMP CONT_ALIEN3
-FIM_PRINTS:
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+NEXTPRINT:
+MOV BX, NAVEX_INICIO ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+
+START4:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_4 ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME4:
+	CMP SI,384 ; eh final?
+	JG PRINTCORACAO
+	;;;;
+	CMP NAVE[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTANAVE
+	JMP START4
+	PRINTANAVE:
+	CALL PRINTA4
+JMP START4
+PART2_4:
+INC ALIEN1Y ; inc
+MOV BX, NAVEX_INICIO ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+JMP IMPRIME4 
+
+
+PRINTCORACAO:
+MOV CONTADOR_ALIEN,3;
+MOV I_ALIEN,0;
+CONT_ALIEN4:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, CORACAOX_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de CORACAO 
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START5:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_5 ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME5:
+	CMP SI,383 ; eh final?
+	JG CONTADOR_FINAL4
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL SCORE
+	;;;;
+	CMP CORACAO[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTACORACAO
+	JMP START5
+	PRINTACORACAO:
+	CALL PRINTA5	
+JMP START5
+PART2_5:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, CORACAOX_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME5
+
+CONTADOR_FINAL4:
+JMP CONT_ALIEN4
+
+
+
+SCORE:
 MOV AH,1H
 INT 21H
 MOV AH,4CH
 INT 21H
+
 	
 
 
@@ -270,4 +411,24 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA3 ENDP
+PRINTA4 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1111b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, NAVEY_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA4 ENDP
+PRINTA5 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 0100b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, 1
+	INT 10H;interrupção
+	RET
+PRINTA5 ENDP
 END MAIN
