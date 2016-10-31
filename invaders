@@ -1,67 +1,43 @@
-TITLE SPACE-INVADERS
+TTITLE SPACE-INVADERS
 .MODEL SMALL
 .STACK 100H
 .DATA
-ALIEN1  DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0
-		DB 0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0
-		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
-		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-		DB 1,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1
-		DB 1,1,1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1
-		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1    ;cabeçudo
-		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-		DB 0,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,0
-		DB 0,0,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,0,0
-		DB 0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,0,0,0
-		DB 0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,0,0,0
-		DB 0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0
-		DB 0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ALIEN1  DB  0,0,0,0,1,1,0,0,0,0
+		DB  0,1,1,1,1,1,1,1,1,0
+		DB  1,1,1,1,1,1,1,1,1,1
+		DB  1,1,1,0,1,1,0,1,1,1
+		DB  0,1,1,1,1,1,1,1,1,0
+		DB  0,0,0,1,1,1,1,0,0,0
+		DB  0,0,1,1,0,0,1,1,0,0 ; cabeçudo
+		DB  0,1,1,0,1,1,0,1,1,0
+		DB  1,1,0,0,0,0,0,0,1,1
+		DB  0,0,0,0,0,0,0,0,0,0
+		DB  0,0,0,0,0,0,0,0,0,0
 		
-ALIEN2  DB 0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
-		DB 0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
-		DB 0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
-		DB 0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0
-        DB 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0
-        DB 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0
-        DB 0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0
-        DB 0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0
-        DB 0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0
-        DB 0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0        ;NERSO
-        DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
-        DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
-        DB 0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0
-        DB 0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0
-        DB 0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0			
-        DB 0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0
-        DB 0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0
-        DB 0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0
-        DB 0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0
+ALIEN2  DB 0,0,1,0,0,0,0,1,0,0
+		DB 0,0,1,0,0,0,0,1,0,0
+		DB 0,0,0,1,0,0,1,0,0,0
+		DB 0,0,1,1,1,1,1,1,0,0
+		DB 0,1,1,0,1,1,0,1,1,0 ;NERSO
+		DB 0,1,1,0,1,1,0,1,1,0
+		DB 1,1,1,1,1,1,1,1,1,1
+		DB 1,0,1,1,1,1,1,1,0,1
+		DB 1,0,1,1,1,1,1,1,0,1
+		DB 1,0,1,0,0,0,0,1,0,1
+		DB 0,0,1,1,0,0,1,1,0,0
 
 
-ALIEN3	DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0    
-		DB 0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0
-		DB 0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0
-		DB 0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0								
-		DB 0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0				;cogumelo
-		DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0
-		DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0
-		DB 0,0,0,0,0,0,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0
-		DB 0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0
-		DB 0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0		
-		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ALIEN3	DB 0,0,0,0,1,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,1,0,0
+		DB 0,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,0,1,1,0,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1 ; triangulo
+		DB 0,0,0,1,0,0,1,0,0,0
+		DB 0,0,1,0,1,1,0,1,0,0
+		DB 0,1,0,0,0,0,0,0,1,0
+		DB 0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0
 		
 NAVE  	DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
@@ -96,8 +72,11 @@ CORACAO DB 0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
-	
+
+PONTUACAO DB 0
+PLACAR DB 'SCORE:'
 ALIENSIZEX DW 24 ; largura
+ALIENSIXEX2 DW 10
 AlIEN1SIZEY DW 19  ; altura
 ALIEN1X DW 0 ; posicao no eixo x
 ALIEN1Y DW	0 ; posicao no eixo y
@@ -106,15 +85,16 @@ ALIEN2Y_INICIO DW 45; posicao inicial do eixo y alien2
 ALIEN3Y_INICIO DW  70; posicao inicial do eixo y alien3
 NAVEY_INICIO DW 170
 NAVEX_INICIO DW 145
-ALIEN1X_INICIO DW 0,40,80,120, 160 ; posicao inicial de cada alien
+ALIEN1X_INICIO DW 0,15,30,45,60,75,90,105,120,135,150,165 ; posicao inicial de cada alien
 CORACAOX_INICIO DW 230,260,290
-CONTADOR_ALIEN DW 5 ; contadador de alien
+CONTADOR_ALIEN DW 12 ; contadador de alien
 I_ALIEN DW 0  ; indice de ALIENX1X_INICIO
 
 .CODE
 PROC MAIN
 MOV AX, @DATA
 MOV DS , AX
+MOV ES , AX
 
 ; modo de tela
 MOV AH,0
@@ -137,12 +117,12 @@ START:
 	INC SI ; incrementa um no si
 	MOV AX,SI ; move pra ax pra fazer a divisao
 	XOR DX, DX ; zera dx
-	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
 	CMP DX,0;compara o resto
 	JE PART2 ; se for igual pula pra parte dois
 	; a parte doi incremente no eixo y pq quebrou a linha
 	IMPRIME:
-	CMP SI,460 ; eh final?
+	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL 
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
 	JL NEXTALIEN
@@ -173,7 +153,7 @@ JMP CONT_ALIEN
 
 ;;;;;;;;;;;;;;;;;;;;;;
 NEXTALIEN:
-MOV CONTADOR_ALIEN,5;
+MOV CONTADOR_ALIEN,12;
 MOV I_ALIEN,0;
 CONT_ALIEN2:
 MOV SI, I_ALIEN ; move o indice pra si
@@ -191,12 +171,12 @@ START2:
 	INC SI ; incrementa um no si
 	MOV AX,SI ; move pra ax pra fazer a divisao
 	XOR DX, DX ; zera dx
-	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
 	CMP DX,0;compara o resto
 	JE PART2_2 ; se for igual pula pra parte dois
 	; a parte doi incremente no eixo y pq quebrou a linha
 	IMPRIME2:
-	CMP SI,460 ; eh final?
+	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL2 
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
 	JL NEXTALIEN2
@@ -225,7 +205,7 @@ JMP CONT_ALIEN2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 NEXTALIEN2:
-MOV CONTADOR_ALIEN,5;
+MOV CONTADOR_ALIEN,12;
 MOV I_ALIEN,0;
 CONT_ALIEN3:
 MOV SI, I_ALIEN ; move o indice pra si
@@ -243,12 +223,12 @@ START3:
 	INC SI ; incrementa um no si
 	MOV AX,SI ; move pra ax pra fazer a divisao
 	XOR DX, DX ; zera dx
-	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
 	CMP DX,0;compara o resto
 	JE PART2_3 ; se for igual pula pra parte dois
 	; a parte doi incremente no eixo y pq quebrou a linha
 	IMPRIME3:
-	CMP SI,460 ; eh final?
+	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL3
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
 	JL NEXTPRINT
@@ -367,14 +347,64 @@ JMP CONT_ALIEN4
 
 
 SCORE:
+	MOV AX,1300H
+	MOV BH,0 ; qual pagina
+	MOV BL, 0010b ;cor da msg
+	MOV DL,0 ; posição
+	MOV DH , 0 ; posição
+	MOV CX,7 ; tamanho da string
+	LEA BP, PLACAR; varivel da string	
+	INT 10H; interrupção
+	
+;MOV BX, pontuacao
+;MOV AH, 0       ; zera o ah
+;MOV CX, 10000 ; cx tem 10000 ~equivale ao numero de casas, em breve sera divido por 10 simultaneas vezes para
+; ser encontrado os digitos
+
+;MOV CONT, 0 ; inicializa contado com 0 ~vai ate o 5, numero de casas~
+;COMPARA:
+;CMP CONT, 5 ; compara CONT com 5
+;JE FINAL        ; se for 5 pula para o final
+;MOV AX, BX      ; move bx para ax, não pode ficar direto no ax pq se nao se perderia no loop
+;MOV DX, 0       ; inicicializa dx com 0, pois a divisão é DX - AX / CX para nao bugar na hr do loop zera dx
+;IDIV CX         ; faz a divisão do AX/DX
+;MOV AUX, AX ; guarda AX em AUX ~ em ax ta UM UNICO DIGITO que representa a casa deciomal que o CX esta
+;MOV BX, DX      ; guarda o resto em BX para o porixmo loop ja ficar salvo ok
+
+
+;MOV AH, 2       ; prepara pra imprimir
+;MOV DL, AL      ; move pra dl ~local da impressao
+;ADD DL, 48      ; converte na tabela ascii
+;INT 21H ; imprime
+; Oq equivale pra esse modo de tela eh o comando abaixo
+	;MOV AX,1300H
+	;MOV BH,0 ; qual pagina
+	;MOV BL, 0010b ;cor da msg
+	;MOV DL,0 ; posição
+	;MOV DH , 0 ; posição
+	;MOV CX,7 ; tamanho da string
+	;LEA BP, ; varivel da string	
+	;INT 10H; interrupção
+
+
+;MOV AX, CX      ;manda cx; ~que tem o controlador de casas decimais~
+;MOV DX, 0       ; zera dx pelo mesmo motivo
+;MOV CX, 10      ; move 10 para cx pra a divisão
+;IDIV CX ; AX/CX
+;MOV CX, AX      ; volta o valor dividido pra CX
+
+;INC CONT        ;incrementa no cont
+;JMP COMPARA ; volta pra comparacao
+
+;FINAL: ; final
+;; para colocarmos a pontuação teremos que usar um sistema parecido com o da calculadora para printar decimais.
+
+
+
 MOV AH,1H
 INT 21H
 MOV AH,4CH
 INT 21H
-
-	
-
-
 
 
 
