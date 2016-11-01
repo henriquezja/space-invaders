@@ -1,4 +1,4 @@
-TTITLE SPACE-INVADERS
+TITLE SPACE-INVADERS
 .MODEL SMALL
 .STACK 100H
 .DATA
@@ -21,7 +21,6 @@ ALIEN2  DB 0,0,1,0,0,0,0,1,0,0
 		DB 0,1,1,0,1,1,0,1,1,0 ;NERSO
 		DB 0,1,1,0,1,1,0,1,1,0
 		DB 1,1,1,1,1,1,1,1,1,1
-		DB 1,0,1,1,1,1,1,1,0,1
 		DB 1,0,1,1,1,1,1,1,0,1
 		DB 1,0,1,0,0,0,0,1,0,1
 		DB 0,0,1,1,0,0,1,1,0,0
@@ -73,7 +72,8 @@ CORACAO DB 0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
 
-PONTUACAO DB 0
+PONTUACAO DW 21345
+PONTUACAOY DB 7
 PLACAR DB 'SCORE:'
 ALIENSIZEX DW 24 ; largura
 ALIENSIXEX2 DW 10
@@ -81,14 +81,21 @@ AlIEN1SIZEY DW 19  ; altura
 ALIEN1X DW 0 ; posicao no eixo x
 ALIEN1Y DW	0 ; posicao no eixo y
 ALIEN1Y_INICIO DW	20 ; posicao inicial do eixo y
-ALIEN2Y_INICIO DW 45; posicao inicial do eixo y alien2
-ALIEN3Y_INICIO DW  70; posicao inicial do eixo y alien3
+ALIEN1Y_INICIO_SEGUNDAFILEIRA DW 35
+ALIEN2Y_INICIO DW 50; posicao inicial do eixo y alien2
+ALIEN2Y_INICIO_SEGUNDAFILEIRA DW 65
+ALIEN3Y_INICIO DW  80; posicao inicial do eixo y alien3
 NAVEY_INICIO DW 170
 NAVEX_INICIO DW 145
 ALIEN1X_INICIO DW 0,15,30,45,60,75,90,105,120,135,150,165 ; posicao inicial de cada alien
 CORACAOX_INICIO DW 230,260,290
 CONTADOR_ALIEN DW 12 ; contadador de alien
 I_ALIEN DW 0  ; indice de ALIENX1X_INICIO
+CONT DW 0
+AUX DW 0
+AUX2 DW 0
+AUX3 DW 0
+AUX4 DB 0
 
 .CODE
 PROC MAIN
@@ -100,6 +107,7 @@ MOV ES , AX
 MOV AH,0
 MOV AL,13H
 INT 10H
+MOV PONTUACAOY,7;Para quando der loop a coordenada do começo da pontuação estar certo
 ;;;;;;;;;;;;;;
 CONT_ALIEN:
 MOV SI, I_ALIEN ; move o indice pra si
@@ -125,7 +133,7 @@ START:
 	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL 
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL NEXTALIEN
+	JL ALIEN1_SEGUNDAFILEIRA
 	;;;;
 	CMP ALIEN1[SI], 1 ; na matriz de desenho tem 1?
 	JE PRINTAALIENS
@@ -148,6 +156,55 @@ CONTADOR_FINAL:
 JMP CONT_ALIEN
 
 
+;;;;;;;;;;;;;;;;;;;;;;
+ALIEN1_SEGUNDAFILEIRA:
+MOV CONTADOR_ALIEN,12
+MOV I_ALIEN,0
+CONT_ALIEN_SEGUNDAFILEIRA:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START_SEGUNDAFILEIRA:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_SEGUNDAFILEIRA ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME_SEGUNDAFILEIRA:
+	CMP SI,110 ; eh final?
+	JG CONTADOR_FINAL_SEGUNDAFILEIRA 
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL NEXTALIEN
+	;;;;
+	CMP ALIEN1[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTAALIENS_SEGUNDAFILEIRA
+	JMP START_SEGUNDAFILEIRA
+	PRINTAALIENS_SEGUNDAFILEIRA:
+	CALL PRINTA1_SEGUNDAFILEIRA
+JMP START_SEGUNDAFILEIRA
+PART2_SEGUNDAFILEIRA:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, ALIEN1X_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME_SEGUNDAFILEIRA 
+
+CONTADOR_FINAL_SEGUNDAFILEIRA:
+JMP CONT_ALIEN_SEGUNDAFILEIRA
 
 
 
@@ -176,10 +233,10 @@ START2:
 	JE PART2_2 ; se for igual pula pra parte dois
 	; a parte doi incremente no eixo y pq quebrou a linha
 	IMPRIME2:
-	CMP SI,110 ; eh final?
+	CMP SI,100 ; eh final?
 	JG CONTADOR_FINAL2 
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL NEXTALIEN2
+	JL NEXTALIEN_SEGUNDAFILEIRA
 	;;;;
 	CMP ALIEN2[SI], 1 ; na matriz de desenho tem 1?
 	JE PRINTAALIENS2
@@ -200,6 +257,59 @@ JMP IMPRIME2
 
 CONTADOR_FINAL2:
 JMP CONT_ALIEN2
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+NEXTALIEN_SEGUNDAFILEIRA:
+MOV CONTADOR_ALIEN,12;
+MOV I_ALIEN,0;
+CONT_ALIEN2_SEGUNDAFILEIRA:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START2_SEGUNDAFILEIRA:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_2_SEGUNDAFILEIRA ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME2_SEGUNDAFILEIRA:
+	CMP SI,100 ; eh final?
+	JG CONTADOR_FINAL2_SEGUNDAFILEIRA 
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL NEXTALIEN2
+	;;;;
+	CMP ALIEN2[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTAALIENS2_SEGUNDAFILEIRA
+	JMP START2_SEGUNDAFILEIRA
+	PRINTAALIENS2_SEGUNDAFILEIRA:
+	CALL PRINTA2_SEGUNDAFILEIRA	
+JMP START2_SEGUNDAFILEIRA
+PART2_2_SEGUNDAFILEIRA:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, ALIEN1X_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME2_SEGUNDAFILEIRA
+
+CONTADOR_FINAL2_SEGUNDAFILEIRA:
+JMP CONT_ALIEN2_SEGUNDAFILEIRA
 
 
 
@@ -352,51 +462,55 @@ SCORE:
 	MOV BL, 0010b ;cor da msg
 	MOV DL,0 ; posição
 	MOV DH , 0 ; posição
-	MOV CX,7 ; tamanho da string
+	MOV CX,6 ; tamanho da string
 	LEA BP, PLACAR; varivel da string	
 	INT 10H; interrupção
 	
-;MOV BX, pontuacao
-;MOV AH, 0       ; zera o ah
-;MOV CX, 10000 ; cx tem 10000 ~equivale ao numero de casas, em breve sera divido por 10 simultaneas vezes para
+MOV BX, PONTUACAO
+XOR AH,AH       ; zera o ah
+MOV CX, 10000 ; cx tem 10000 ~equivale ao numero de casas, em breve sera divido por 10 simultaneas vezes para
 ; ser encontrado os digitos
-
-;MOV CONT, 0 ; inicializa contado com 0 ~vai ate o 5, numero de casas~
-;COMPARA:
-;CMP CONT, 5 ; compara CONT com 5
-;JE FINAL        ; se for 5 pula para o final
-;MOV AX, BX      ; move bx para ax, não pode ficar direto no ax pq se nao se perderia no loop
-;MOV DX, 0       ; inicicializa dx com 0, pois a divisão é DX - AX / CX para nao bugar na hr do loop zera dx
-;IDIV CX         ; faz a divisão do AX/DX
-;MOV AUX, AX ; guarda AX em AUX ~ em ax ta UM UNICO DIGITO que representa a casa deciomal que o CX esta
-;MOV BX, DX      ; guarda o resto em BX para o porixmo loop ja ficar salvo ok
+MOV CONT, 0 ; inicializa contado com 0 ~vai ate o 5, numero de casas~
+COMPARA_SCORE:
+MOV AUX3,CX ; para quando utilizarmos o comando de printar nesse modo de tela diferente , não perdermos oq temos no CX
+CMP CONT, 5 ; compara CONT com 5
+JE FINAL_SCORE        ; se for 5 pula para o final
+MOV AX, BX      ; move bx para ax, não pode ficar direto no ax pq se nao se perderia no loop
+XOR DX, DX       ; inicicializa dx com 0, pois a divisão é DX - AX / CX para nao bugar na hr do loop zera dx
+IDIV CX         ; faz a divisão do AX/DX
+MOV AUX, AX ; guarda AX em AUX ~ em ax ta UM UNICO DIGITO que representa a casa deciomal que o CX esta
+MOV AUX2, DX      ; guarda o resto em BX para o porixmo loop ja ficar salvo ok
+ADD AL,48
+MOV AUX4,AL ; PARA USARMOS NO COMANDO
 
 
 ;MOV AH, 2       ; prepara pra imprimir
 ;MOV DL, AL      ; move pra dl ~local da impressao
 ;ADD DL, 48      ; converte na tabela ascii
 ;INT 21H ; imprime
-; Oq equivale pra esse modo de tela eh o comando abaixo
-	;MOV AX,1300H
-	;MOV BH,0 ; qual pagina
-	;MOV BL, 0010b ;cor da msg
-	;MOV DL,0 ; posição
-	;MOV DH , 0 ; posição
-	;MOV CX,7 ; tamanho da string
-	;LEA BP, ; varivel da string	
-	;INT 10H; interrupção
+ ;Oq equivale pra esse modo de tela eh o comando abaixo
+	MOV AX,1300H
+	MOV BH,0 ; qual pagina
+	MOV BL, 0010b ;cor da msg
+	MOV DL,PONTUACAOY ; posição X
+	MOV DH , 0 ; posição Y
+	MOV CX,1 ; tamanho da string
+	LEA BP,AUX4 ; varivel da string	
+	INT 10H; interrupção
+INC PONTUACAOY; porq no proximo loop queremos que a pontuacao seja exibida no proximo espaço após o score
+MOV CX,AUX3;recuperando o valor das variaveis que iriamos perder após esse comando
+MOV AX, AUX
+MOV BX,AUX2
+MOV AX, CX      ;manda cx; ~que tem o controlador de casas decimais~
+XOR DX,DX       ; zera dx pelo mesmo motivo
+MOV CX, 10      ; move 10 para cx pra a divisão
+IDIV CX ; AX/CX
+MOV CX, AX      ; volta o valor dividido pra CX
 
+INC CONT        ;incrementa no cont
+JMP COMPARA_SCORE ; volta pra comparacao
 
-;MOV AX, CX      ;manda cx; ~que tem o controlador de casas decimais~
-;MOV DX, 0       ; zera dx pelo mesmo motivo
-;MOV CX, 10      ; move 10 para cx pra a divisão
-;IDIV CX ; AX/CX
-;MOV CX, AX      ; volta o valor dividido pra CX
-
-;INC CONT        ;incrementa no cont
-;JMP COMPARA ; volta pra comparacao
-
-;FINAL: ; final
+FINAL_SCORE: ; final
 ;; para colocarmos a pontuação teremos que usar um sistema parecido com o da calculadora para printar decimais.
 
 
@@ -421,6 +535,16 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA1 ENDP
+PRINTA1_SEGUNDAFILEIRA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1011b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN1Y_INICIO_SEGUNDAFILEIRA
+	INT 10H;interrupção
+	RET
+PRINTA1_SEGUNDAFILEIRA ENDP
 PRINTA2 PROC
 MOV AH,0cH;comando para printar um pixel
 	MOV AL , 0011b;cor
@@ -431,6 +555,16 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA2 ENDP
+PRINTA2_SEGUNDAFILEIRA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 0011b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN2Y_INICIO_SEGUNDAFILEIRA
+	INT 10H;interrupção
+	RET
+PRINTA2_SEGUNDAFILEIRA ENDP
 PRINTA3 PROC
 MOV AH,0cH;comando para printar um pixel
 	MOV AL , 1010b;cor
