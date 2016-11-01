@@ -71,7 +71,62 @@ CORACAO DB 0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0
 		DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+		
+MURO1	DB 0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0    ;muronivel1
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		
+MURO2	DB 0,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0    ;muronive2
+		DB 0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1
+		DB 1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		
+MURO3	DB 0,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0    ;muronivel3
+		DB 0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1
+		DB 1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1
+		DB 1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1
+		DB 1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1
+		DB 1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0
+		DB 1,1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1
+		DB 1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1
+		
+		
+MURO4 	DB 0,0,0,0,1,0,1,1,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0
+		DB 0,0,0,1,1,1,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,0    ;muronivel4
+		DB 0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,0,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1
+		DB 1,0,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,1,1,0,1,1,1,1
+		DB 1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,0,1,1,1,0,1,1
+		DB 1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1
+		DB 1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,0,1,1,1,0,1,1
+		DB 1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,0,1,1,1,0
+		DB 1,1,0,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1
+		DB 0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0
 
+I_MURO DW 0		
+DANOMURO DW 0,1,2,3,1
 PONTUACAO DW 21345
 PONTUACAOY DB 7
 PLACAR DB 'SCORE:'
@@ -81,14 +136,15 @@ AlIEN1SIZEY DW 19  ; altura
 ALIEN1X DW 0 ; posicao no eixo x
 ALIEN1Y DW	0 ; posicao no eixo y
 ALIEN1Y_INICIO DW	20 ; posicao inicial do eixo y
-ALIEN1Y_INICIO_SEGUNDAFILEIRA DW 35
-ALIEN2Y_INICIO DW 50; posicao inicial do eixo y alien2
-ALIEN2Y_INICIO_SEGUNDAFILEIRA DW 65
-ALIEN3Y_INICIO DW  80; posicao inicial do eixo y alien3
+ALIEN2Y_INICIO DW 35; posicao inicial do eixo y alien2
+ALIEN2Y_INICIO_SEGUNDAFILEIRA DW 50
+ALIEN3Y_INICIO DW  65; posicao inicial do eixo y alien3
+ALIEN3Y_INICIO_SEGUNDAFILEIRA DW 80
 NAVEY_INICIO DW 170
 NAVEX_INICIO DW 145
 ALIEN1X_INICIO DW 0,15,30,45,60,75,90,105,120,135,150,165 ; posicao inicial de cada alien
 CORACAOX_INICIO DW 230,260,290
+MUROSX_INICIO DW 50,100,150,200,250
 CONTADOR_ALIEN DW 12 ; contadador de alien
 I_ALIEN DW 0  ; indice de ALIENX1X_INICIO
 CONT DW 0
@@ -108,6 +164,11 @@ MOV AH,0
 MOV AL,13H
 INT 10H
 MOV PONTUACAOY,7;Para quando der loop a coordenada do começo da pontuação estar certo
+INICIO:
+MOV ALIEN1X,0
+MOV ALIEN1Y,0
+MOV CONTADOR_ALIEN,12
+MOV I_ALIEN , 0
 ;;;;;;;;;;;;;;
 CONT_ALIEN:
 MOV SI, I_ALIEN ; move o indice pra si
@@ -133,7 +194,7 @@ START:
 	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL 
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL ALIEN1_SEGUNDAFILEIRA
+	JL NEXTALIEN
 	;;;;
 	CMP ALIEN1[SI], 1 ; na matriz de desenho tem 1?
 	JE PRINTAALIENS
@@ -154,58 +215,6 @@ JMP IMPRIME
 
 CONTADOR_FINAL:
 JMP CONT_ALIEN
-
-
-;;;;;;;;;;;;;;;;;;;;;;
-ALIEN1_SEGUNDAFILEIRA:
-MOV CONTADOR_ALIEN,12
-MOV I_ALIEN,0
-CONT_ALIEN_SEGUNDAFILEIRA:
-MOV SI, I_ALIEN ; move o indice pra si
-MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
-MOV ALIEN1X, BX ; volta a posicao pra alien
-XOR BX, BX ; zera bx
-ADD I_ALIEN, 2 ; ja prepara o proximo indice
-DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
-
-MOV SI,-1 ; inicia com -1 pra proxima ser 0
-MOV ALIEN1Y,-1 ; mesma coisa
-START_SEGUNDAFILEIRA:
-
-	INC ALIEN1X ; incrementa 1 no eixo x
-	INC SI ; incrementa um no si
-	MOV AX,SI ; move pra ax pra fazer a divisao
-	XOR DX, DX ; zera dx
-	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
-	CMP DX,0;compara o resto
-	JE PART2_SEGUNDAFILEIRA ; se for igual pula pra parte dois
-	; a parte doi incremente no eixo y pq quebrou a linha
-	IMPRIME_SEGUNDAFILEIRA:
-	CMP SI,110 ; eh final?
-	JG CONTADOR_FINAL_SEGUNDAFILEIRA 
-	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL NEXTALIEN
-	;;;;
-	CMP ALIEN1[SI], 1 ; na matriz de desenho tem 1?
-	JE PRINTAALIENS_SEGUNDAFILEIRA
-	JMP START_SEGUNDAFILEIRA
-	PRINTAALIENS_SEGUNDAFILEIRA:
-	CALL PRINTA1_SEGUNDAFILEIRA
-JMP START_SEGUNDAFILEIRA
-PART2_SEGUNDAFILEIRA:
-INC ALIEN1Y ; inc
-PUSH SI ; guarda si
-MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
-SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
-MOV BX, ALIEN1X_INICIO[SI] ; mesma coisa
-MOV ALIEN1X, BX
-XOR BX, BX
-POP SI ; pega si de volta
-JMP IMPRIME_SEGUNDAFILEIRA 
-
-CONTADOR_FINAL_SEGUNDAFILEIRA:
-JMP CONT_ALIEN_SEGUNDAFILEIRA
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -341,7 +350,7 @@ START3:
 	CMP SI,110 ; eh final?
 	JG CONTADOR_FINAL3
 	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL NEXTPRINT
+	JL NEXTALIEN2_SEGUNDAFILEIRA
 	;;;;
 	CMP ALIEN3[SI], 1 ; na matriz de desenho tem 1?
 	JE PRINTAALIENS3
@@ -362,6 +371,55 @@ JMP IMPRIME3
 
 CONTADOR_FINAL3:
 JMP CONT_ALIEN3
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+NEXTALIEN2_SEGUNDAFILEIRA:
+MOV CONTADOR_ALIEN,12;
+MOV I_ALIEN,0;
+CONT_ALIEN3_SEGUNDAFILEIRA:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START3_SEGUNDAFILEIRA:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIXEX2 ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_3_SEGUNDAFILEIRA ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME3_SEGUNDAFILEIRA:
+	CMP SI,110 ; eh final?
+	JG CONTADOR_FINAL3_SEGUNDAFILEIRA
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL NEXTPRINT
+	;;;;
+	CMP ALIEN3[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTAALIENS3_SEGUNDAFILEIRA
+	JMP START3_SEGUNDAFILEIRA
+	PRINTAALIENS3_SEGUNDAFILEIRA:
+	CALL PRINTA3_SEGUNDAFILEIRA
+JMP START3_SEGUNDAFILEIRA
+PART2_3_SEGUNDAFILEIRA:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, ALIEN1X_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME3_SEGUNDAFILEIRA 
+
+CONTADOR_FINAL3_SEGUNDAFILEIRA:
+JMP CONT_ALIEN3_SEGUNDAFILEIRA
 
 
 
@@ -474,7 +532,7 @@ MOV CONT, 0 ; inicializa contado com 0 ~vai ate o 5, numero de casas~
 COMPARA_SCORE:
 MOV AUX3,CX ; para quando utilizarmos o comando de printar nesse modo de tela diferente , não perdermos oq temos no CX
 CMP CONT, 5 ; compara CONT com 5
-JE FINAL_SCORE        ; se for 5 pula para o final
+JE MUROS        ; se for 5 pula para o final
 MOV AX, BX      ; move bx para ax, não pode ficar direto no ax pq se nao se perderia no loop
 XOR DX, DX       ; inicicializa dx com 0, pois a divisão é DX - AX / CX para nao bugar na hr do loop zera dx
 IDIV CX         ; faz a divisão do AX/DX
@@ -510,13 +568,98 @@ MOV CX, AX      ; volta o valor dividido pra CX
 INC CONT        ;incrementa no cont
 JMP COMPARA_SCORE ; volta pra comparacao
 
-FINAL_SCORE: ; final
-;; para colocarmos a pontuação teremos que usar um sistema parecido com o da calculadora para printar decimais.
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
-MOV AH,1H
-INT 21H
+
+
+MUROS:
+MOV CONTADOR_ALIEN,5;
+MOV I_ALIEN,0;
+CONT_MUROS:
+MOV AX,I_ALIEN
+MOV I_MURO,AX
+XOR AX,AX
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, MUROSX_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de MUROS
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START6:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_6 ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME6:
+	CMP SI,288 ; eh final?
+	JG CONTADOR_FINAL5
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL FINALMURO
+	PUSH SI
+	MOV SI,I_MURO
+	CMP DANOMURO[SI],0
+	JE MURONIVEL1
+	CMP DANOMURO[SI],1
+	JE MURONIVEL2
+	CMP DANOMURO[SI],2
+	JE MURONIVEL3
+	CMP DANOMURO[SI],3
+	JE MURONIVEL4
+	JMP MURODESTRUIDO
+	MURONIVEL1:
+	POP SI
+	CMP MURO1[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTA_MURO
+	JMP START6
+	MURONIVEL2:
+	POP SI
+	CMP MURO2[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTA_MURO
+	JMP START6 
+	MURONIVEL3:
+	POP SI
+	CMP MURO3[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTA_MURO
+	JMP START6 
+	MURONIVEL4:
+	POP SI
+	CMP MURO4[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTA_MURO
+	JMP START6
+	MURODESTRUIDO:
+	POP SI
+	JMP CONT_MUROS
+	PRINTA_MURO:
+	CALL PRINTAMURO
+JMP START6
+PART2_6:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, MUROSX_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME6
+
+CONTADOR_FINAL5:
+JMP CONT_MUROS
+
+FINALMURO:
+
 MOV AH,4CH
 INT 21H
 
@@ -535,16 +678,6 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA1 ENDP
-PRINTA1_SEGUNDAFILEIRA PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1011b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN1Y_INICIO_SEGUNDAFILEIRA
-	INT 10H;interrupção
-	RET
-PRINTA1_SEGUNDAFILEIRA ENDP
 PRINTA2 PROC
 MOV AH,0cH;comando para printar um pixel
 	MOV AL , 0011b;cor
@@ -575,6 +708,16 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA3 ENDP
+PRINTA3_SEGUNDAFILEIRA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1010b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN3Y_INICIO_SEGUNDAFILEIRA
+	INT 10H;interrupção
+	RET
+PRINTA3_SEGUNDAFILEIRA ENDP
 PRINTA4 PROC
 MOV AH,0cH;comando para printar um pixel
 	MOV AL , 1111b;cor
@@ -595,4 +738,14 @@ MOV AH,0cH;comando para printar um pixel
 	INT 10H;interrupção
 	RET
 PRINTA5 ENDP
+PRINTAMURO PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 0001b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, 150
+	INT 10H;interrupção
+	RET
+PRINTAMURO ENDP
 END MAIN
