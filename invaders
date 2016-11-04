@@ -132,12 +132,20 @@ TIRO DB 1
 	 DB 1
 	 DB 1
 
+	 
+	 
+VIDAS DW 1	 
+FILEIRA1 DW 0,0,0,0,0,0,0,0,0,0,0,0
+FILEIRA2 DW 0,0,0,0,0,0,0,0,0,0,0,0
+FILEIRA3 DW 0,0,0,0,0,0,0,0,0,0,0,0
+FILEIRA4 DW 0,0,0,0,0,0,0,0,0,0,0,0
+FILEIRA5 DW 0,0,0,0,0,0,0,0,0,0,0,0
 TIROSIZEX DW 1		
 TIROY DW 170
 TIROX DW 0
 I_MURO DW 0		
 DANOMURO DW 0,0,0,0,0
-PONTUACAO DW 21345
+PONTUACAO DW 00000
 PONTUACAOY DB 7
 PLACAR DB 'SCORE:'
 ALIENSIZEX DW 24 ; largura
@@ -187,7 +195,10 @@ MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
 MOV ALIEN1X, BX ; volta a posicao pra alien
 XOR BX, BX ; zera bx
 ADD I_ALIEN, 2 ; ja prepara o proximo indice
-DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo
+ 
+CMP FILEIRA1[SI],1 ;  compara para ver se o alien está vivo
+JE CONT_ALIEN
 
 MOV SI,-1 ; inicia com -1 pra proxima ser 0
 MOV ALIEN1Y,-1 ; mesma coisa
@@ -212,6 +223,7 @@ START:
 	JMP START
 	PRINTAALIENS:
 	CALL PRINTA1
+	
 JMP START
 PART2:
 INC ALIEN1Y ; inc
@@ -239,6 +251,9 @@ MOV ALIEN1X, BX ; volta a posicao pra alien
 XOR BX, BX ; zera bx
 ADD I_ALIEN, 2 ; ja prepara o proximo indice
 DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+
+CMP FILEIRA2[SI],1 ;  compara para ver se o alien está vivo
+JE CONT_ALIEN2
 
 MOV SI,-1 ; inicia com -1 pra proxima ser 0
 MOV ALIEN1Y,-1 ; mesma coisa
@@ -291,7 +306,10 @@ MOV BX, ALIEN1X_INICIO[SI] ; pega a posicaox do alien na matriZ
 MOV ALIEN1X, BX ; volta a posicao pra alien
 XOR BX, BX ; zera bx
 ADD I_ALIEN, 2 ; ja prepara o proximo indice
-DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+DEC CONTADOR_ALIEN ; subtrai um do contador de bixo
+ 
+CMP FILEIRA3[SI],1 ;  compara para ver se o alien está vivo
+JE CONT_ALIEN2_SEGUNDAFILEIRA
 
 MOV SI,-1 ; inicia com -1 pra proxima ser 0
 MOV ALIEN1Y,-1 ; mesma coisa
@@ -345,6 +363,9 @@ XOR BX, BX ; zera bx
 ADD I_ALIEN, 2 ; ja prepara o proximo indice
 DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
 
+CMP FILEIRA4[SI],1 ;  compara para ver se o alien está vivo
+JE CONT_ALIEN3
+
 MOV SI,-1 ; inicia com -1 pra proxima ser 0
 MOV ALIEN1Y,-1 ; mesma coisa
 START3:
@@ -393,6 +414,9 @@ MOV ALIEN1X, BX ; volta a posicao pra alien
 XOR BX, BX ; zera bx
 ADD I_ALIEN, 2 ; ja prepara o proximo indice
 DEC CONTADOR_ALIEN ; subtrai um do contador de bixo 
+
+CMP FILEIRA5[SI],1 ;  compara para ver se o alien está vivo
+JE CONT_ALIEN3_SEGUNDAFILEIRA
 
 MOV SI,-1 ; inicia com -1 pra proxima ser 0
 MOV ALIEN1Y,-1 ; mesma coisa
@@ -519,7 +543,8 @@ JMP IMPRIME_TIRO
 
 
 PRINTCORACAO:
-MOV CONTADOR_ALIEN,3;
+MOV BX,VIDAS
+MOV CONTADOR_ALIEN,BX;
 MOV I_ALIEN,0;
 CONT_ALIEN4:
 MOV SI, I_ALIEN ; move o indice pra si
@@ -632,6 +657,199 @@ JMP COMPARA_SCORE ; volta pra comparacao
 
 
 MUROS:
+CALL PROCEDIMENTO_MURO
+CALL PROCEDIMENTO_MURO
+CALL PROCEDIMENTO_MURO
+
+
+
+
+
+
+
+
+
+JMP WAITFORKEY
+GOTKEY:
+
+	MOV AH,0H
+	INT 16H
+	JMP COMPARACOES_MOVIMENTO
+WAITFORKEY:
+	MOV AH,01H ; Comando para receber tecla do teclado, só que se vc n apertar nada ela n fica esperando, e vai para o proximo comando
+	INT 16H
+	JNZ GOTKEY
+	
+	
+	
+COMPARACOES_MOVIMENTO:	
+CMP AL, 'a'
+JE ESQUERDA_NAV
+CMP AL, 'd'
+JE DIREITA_NAV
+CMP AL,'1'
+JE SAIR_PROGRAMA
+CMP AL,' '
+JE TIRODANAVE
+JMP FIM_NAVE
+ESQUERDA_NAV:
+CMP NAVEX_INICIO,0
+JNG FIM_NAVE
+DEC NAVEX_INICIO
+DEC NAVEX_INICIO
+JMP FIM_NAVE
+DIREITA_NAV:
+CMP NAVEX_INICIO,296
+JGE FIM_NAVE
+INC NAVEX_INICIO
+INC NAVEX_INICIO
+JMP FIM_NAVE
+TIRODANAVE:
+CMP TIROY,170
+JE ATIRAR
+JMP FIM_NAVE
+
+ATIRAR:
+DEC TIROY
+DEC TIROY
+MOV BX, NAVEX_INICIO
+ADD BX,12
+MOV TIROX,BX
+JMP FIM_NAVE 
+
+
+
+FIM_NAVE:
+JMP CMP_TIRO
+
+SAIR_PROGRAMA:
+MOV AH,4CH
+INT 21H; faz a movimentação da nave
+
+CMP_TIRO:
+CMP TIROY,170
+JE ALIEN_MOVIMENTOS
+
+
+DEC TIROY
+DEC TIROY
+
+
+CMP TIROY,20
+JLE RESETA_TIRO
+JMP ALIEN_MOVIMENTOS
+
+
+RESETA_TIRO:
+MOV TIROY,170
+
+ALIEN_MOVIMENTOS:
+CALL CLEAN_SCREEN
+JMP INICIO
+
+SAIR:
+MOV AH,4CH
+INT 21h
+
+ENDP MAIN
+
+PRINTA1 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 53;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN1Y_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA1 ENDP
+PRINTA2 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 45;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN2Y_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA2 ENDP
+PRINTA2_SEGUNDAFILEIRA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 43;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN2Y_INICIO_SEGUNDAFILEIRA
+	INT 10H;interrupção
+	RET
+PRINTA2_SEGUNDAFILEIRA ENDP
+PRINTA3 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1010b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN3Y_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA3 ENDP
+PRINTA3_SEGUNDAFILEIRA PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1100b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, ALIEN3Y_INICIO_SEGUNDAFILEIRA
+	INT 10H;interrupção
+	RET
+PRINTA3_SEGUNDAFILEIRA ENDP
+PRINTA4 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1111b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, NAVEY_INICIO
+	INT 10H;interrupção
+	RET
+PRINTA4 ENDP
+PRINTA_TIRO PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 1111b;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, TIROY
+	INT 10H;interrupção
+	RET
+PRINTA_TIRO ENDP
+PRINTA5 PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 40;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, 1
+	INT 10H;interrupção
+	RET
+PRINTA5 ENDP
+PRINTAMURO PROC
+MOV AH,0cH;comando para printar um pixel
+	MOV AL , 46;cor
+	MOV BH,0;pagina
+	MOV CX, ALIEN1X;coordenadas coluna
+	MOV DX, ALIEN1Y;coordenadas linha
+	ADD DX, 150
+	INT 10H;interrupção
+	RET
+PRINTAMURO ENDP
+
+
+
+
+
+
+PROC PROCEDIMENTO_MURO
 MOV CONTADOR_ALIEN,5;
 MOV I_ALIEN,0;
 CONT_MUROS:
@@ -714,179 +932,15 @@ CONTADOR_FINAL5:
 JMP CONT_MUROS
 
 FINALMURO:
-JMP WAITFORKEY
+RET
+ENDP PROCEDIMENTO_MURO
 
 
 
 
 
-WAITFORKEY:
-	MOV AH,01H ; Comando para receber tecla do teclado, só que se vc n apertar nada ela n fica esperando, e vai para o proximo comando
-	INT 16H
-	
-	
-	
-	
-CMP AL, 'a'
-JE ESQUERDA_NAV
-CMP AL, 'd'
-JE DIREITA_NAV
-CMP AL,'1'
-JE SAIR_PROGRAMA
-CMP AL,' '
-JE TIRODANAVE
-JMP FIM_NAVE
-ESQUERDA_NAV:
-CMP NAVEX_INICIO,0
-JNG FIM_NAVE
-DEC NAVEX_INICIO
-DEC NAVEX_INICIO
-JMP FIM_NAVE
-DIREITA_NAV:
-CMP NAVEX_INICIO,296
-JGE FIM_NAVE
-INC NAVEX_INICIO
-INC NAVEX_INICIO
-JMP FIM_NAVE
-TIRODANAVE:
-CMP TIROY,170
-JE ATIRAR
-JMP FIM_NAVE
-
-ATIRAR:
-DEC TIROY
-DEC TIROY
-MOV BX, NAVEX_INICIO
-MOV TIROX,BX
-JMP FIM_NAVE 
 
 
-
-FIM_NAVE:
-JMP CMP_TIRO
-
-SAIR_PROGRAMA:
-MOV AH,4CH
-INT 21H; faz a movimentação da nave
-
-CMP_TIRO:
-CMP TIROY,170
-JE ALIEN_MOVIMENTOS
-
-
-DEC TIROY
-DEC TIROY
-
-
-CMP TIROY,20
-JLE RESETA_TIRO
-JMP ALIEN_MOVIMENTOS
-
-
-RESETA_TIRO:
-MOV TIROY,170
-
-ALIEN_MOVIMENTOS:
-JMP WAITFORKEY
-CALL CLEAN_SCREEN
-JMP INICIO
-
-SAIR:
-MOV AH,4CH
-INT 21h
-
-ENDP MAIN
-
-PRINTA1 PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1011b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN1Y_INICIO
-	INT 10H;interrupção
-	RET
-PRINTA1 ENDP
-PRINTA2 PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 0011b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN2Y_INICIO
-	INT 10H;interrupção
-	RET
-PRINTA2 ENDP
-PRINTA2_SEGUNDAFILEIRA PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 0011b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN2Y_INICIO_SEGUNDAFILEIRA
-	INT 10H;interrupção
-	RET
-PRINTA2_SEGUNDAFILEIRA ENDP
-PRINTA3 PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1010b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN3Y_INICIO
-	INT 10H;interrupção
-	RET
-PRINTA3 ENDP
-PRINTA3_SEGUNDAFILEIRA PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1010b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, ALIEN3Y_INICIO_SEGUNDAFILEIRA
-	INT 10H;interrupção
-	RET
-PRINTA3_SEGUNDAFILEIRA ENDP
-PRINTA4 PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1111b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, NAVEY_INICIO
-	INT 10H;interrupção
-	RET
-PRINTA4 ENDP
-PRINTA_TIRO PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 1111b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, TIROY
-	INT 10H;interrupção
-	RET
-PRINTA_TIRO ENDP
-PRINTA5 PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 0100b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, 1
-	INT 10H;interrupção
-	RET
-PRINTA5 ENDP
-PRINTAMURO PROC
-MOV AH,0cH;comando para printar um pixel
-	MOV AL , 0001b;cor
-	MOV BH,0;pagina
-	MOV CX, ALIEN1X;coordenadas coluna
-	MOV DX, ALIEN1Y;coordenadas linha
-	ADD DX, 150
-	INT 10H;interrupção
-	RET
-PRINTAMURO ENDP
 PROC CLEAN_SCREEN
 	MOV AH, 6h
 	XOR AL,AL
