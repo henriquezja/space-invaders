@@ -2,12 +2,96 @@ TITLE SPACE-INVADERS
 .MODEL SMALL
 .STACK 100H
 .DATA
+ALIEN1  DB 0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,1,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,1,0,1,0,0
+		DB 0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,0,0,0
+		DB 0,0,1,0,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,0,1,0,0
+		DB 0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0
+		DB 0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0    ;nave
+		DB 0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0
+		DB 0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0
+		DB 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+		DB 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		DB 0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0
+		DB 0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0
+  
+  ALIEN1SIZEX DW 24 ; largura
+  AlIEN1SIZEY DW 16  ; altura
+  ALIEN1X DW 0 ; posicao no eixo x
+  ALIEN1Y DW 0 ; posicao no eixo y
+  ALIEN1Y_INICIO DW 0 ; posicao inicial do eixo y
+  ALIEN1X_INICIO DW 0; posicao inicial de cada alien
+ 
 
 .CODE
 PROC MAIN
+  MOV AX, @DATA
+  MOV DS, AX
+  MOV ES, AX
+
+  MOV AH,0
+  MOV AL, 13H
+  INT 10H
+ 
+  MOV BX, ALIEN1X_INICIO ; pega a posicaox do alien na matriZ
+  MOV ALIEN1X, BX ; volta a posicao pra alien
+  XOR BX, BX ; zera bx
+
+  MOV SI,-1 ; inicia com -1 pra proxima ser 0
+  MOV ALIEN1Y,-1 ; mesma coisa
+
+START4:
+
+ INC ALIEN1X ; incrementa 1 no eixo x
+ INC SI ; incrementa um no si
+ MOV AX,SI ; move pra ax pra fazer a divisao
+ XOR DX, DX ; zera dx
+ IDIV ALIEN1SIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+ CMP DX,0;compara o resto
+ JE PART2_4 ; se for igual pula pra parte dois
+ ; a parte doi incremente no eixo y pq quebrou a linha
+ IMPRIME4:
+ CMP SI,383 ; eh final?
+ JG END_PRINT_ALIEN1 
+ CMP ALIEN1[SI], 1 ; na matriz de desenho tem 1?
+ JE PRINTA1
+ JMP START4
+ 
+PRINTA1:
+ CALL PRINTA
+ JMP START4
+ PART2_4:
+ INC ALIEN1Y ; inc
+ MOV BX, ALIEN1X_INICIO ; mesma coisa
+ MOV ALIEN1X, BX
+ XOR BX, BX
+ JMP IMPRIME4 
 
 
+ ;;;;;;;;;;;;;;;;;;;;;;
 
+ END_PRINT_ALIEN1: 
+ 
+ MOV AH,1H
+ INT 21H
+ MOV AH,4CH
+ INT 21H
+ 
 
 ENDP MAIN
+
+PRINTA PROC
+ MOV AH,0cH;comando para printar um pixel
+ MOV AL , 1001b;cor
+ MOV BH,0;pagina
+ MOV CX, ALIEN1X;coordenadas coluna
+ MOV DX, ALIEN1Y;coordenadas linha
+ ADD DX, ALIEN1Y_INICIO
+ INT 10H;interrupção
+ RET
+PRINTA ENDP
 END MAIN
