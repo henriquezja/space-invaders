@@ -125,6 +125,18 @@ MURO4 	DB 0,0,0,0,1,0,1,1,0,0,1,1,0,1,1,1,1,1,0,1,0,0,0,0
 		DB 1,1,0,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1
 		DB 0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0
 
+MURO5 	DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0   ;murodestruido
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0  
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0   
+		DB 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 		
 		
 TIRO DB 1
@@ -136,7 +148,7 @@ TIRO DB 1
 CONT_ALIENS_MORTOS DB 0
 COR_PIXEL DB 0	 
 DIRECAO DB 1 ; se for igual a 1 o alien se movimenta para direita , se for 0 movimenta para esquerda	 
-VIDAS DW 1	 
+VIDAS DW 3	 
 FILEIRA1 DW 0,0,0,0,0,0,0,0,0,0,0,0
 FILEIRA2 DW 0,0,0,0,0,0,0,0,0,0,0,0
 FILEIRA3 DW 0,0,0,0,0,0,0,0,0,0,0,0
@@ -545,55 +557,7 @@ JMP IMPRIME_TIRO
 
 
 PRINTCORACAO:
-MOV BX,VIDAS
-MOV CONTADOR_ALIEN,BX;
-MOV I_ALIEN,0;
-CONT_ALIEN4:
-MOV SI, I_ALIEN ; move o indice pra si
-MOV BX, CORACAOX_INICIO[SI] ; pega a posicaox do alien na matriZ
-MOV ALIEN1X, BX ; volta a posicao pra alien
-XOR BX, BX ; zera bx
-ADD I_ALIEN, 2 ; ja prepara o proximo indice
-DEC CONTADOR_ALIEN ; subtrai um do contador de CORACAO 
-
-MOV SI,-1 ; inicia com -1 pra proxima ser 0
-MOV ALIEN1Y,-1 ; mesma coisa
-START5:
-
-	INC ALIEN1X ; incrementa 1 no eixo x
-	INC SI ; incrementa um no si
-	MOV AX,SI ; move pra ax pra fazer a divisao
-	XOR DX, DX ; zera dx
-	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
-	CMP DX,0;compara o resto
-	JE PART2_5 ; se for igual pula pra parte dois
-	; a parte doi incremente no eixo y pq quebrou a linha
-	IMPRIME5:
-	CMP SI,383 ; eh final?
-	JG CONTADOR_FINAL4
-	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
-	JL SCORE
-	;;;;
-	CMP CORACAO[SI], 1 ; na matriz de desenho tem 1?
-	JE PRINTACORACAO
-	JMP START5
-	PRINTACORACAO:
-	CALL PRINTA5	
-JMP START5
-PART2_5:
-INC ALIEN1Y ; inc
-PUSH SI ; guarda si
-MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
-SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
-MOV BX, CORACAOX_INICIO[SI] ; mesma coisa
-MOV ALIEN1X, BX
-XOR BX, BX
-POP SI ; pega si de volta
-JMP IMPRIME5
-
-CONTADOR_FINAL4:
-JMP CONT_ALIEN4
-
+CALL PRINTA_VIDAS
 
 SCORE:
 CALL PRINTA_SCORE
@@ -605,9 +569,6 @@ CALL PRINTA_SCORE
 
 MUROS:
 CALL PROCEDIMENTO_MURO
-CALL PROCEDIMENTO_MURO
-CALL PROCEDIMENTO_MURO
-
 
 
 
@@ -696,22 +657,22 @@ INT 10H; comando para checar a cor que é o pixel especificado acima
 
 MOV COR_PIXEL,AL
 
-CMP AL,53
+CMP COR_PIXEL,53
 JE ACERTA_TIRO_FILEIRA1
 
-CMP AL,45
+CMP COR_PIXEL,45
 JE ACERTA_TIRO_FILEIRA2
 
-CMP AL,43
+CMP COR_PIXEL,43
 JE ACERTA_TIRO_FILEIRA3
 
-CMP AL,1010b
+CMP COR_PIXEL,1010b
 JE ACERTA_TIRO_FILEIRA4
 
-CMP AL,1100b
+CMP COR_PIXEL,1100b
 JE ACERTA_TIRO_FILEIRA5
 
-CMP AL, 46
+CMP COR_PIXEL, 46
 JE ACERTA_TIRO_MURO
 
 JMP ALIENS_MOVIMENTOS;
@@ -734,6 +695,7 @@ JMP ALIENS_MOVIMENTOS
 
 ACERTA_TIRO_FILEIRA5:
 CALL ACERTA_FILEIRA5
+JMP ALIENS_MOVIMENTOS
 
 ACERTA_TIRO_MURO:
 CALL ACERTA_MURO
@@ -988,8 +950,13 @@ START6:
 	JMP START6
 	MURODESTRUIDO:
 	POP SI
-	JMP CONT_MUROS
+	CMP MURO5[SI],1
+	JE PRINTA_MURO
+	JMP START6
 	PRINTA_MURO:
+	
+	
+	
 	CALL PRINTAMURO
 JMP START6
 PART2_6:
@@ -1009,6 +976,11 @@ JMP CONT_MUROS
 FINALMURO:
 RET
 ENDP PROCEDIMENTO_MURO
+
+
+
+
+
 
 PROC ACERTA_FILEIRA1
 MOV AX,TIROX
@@ -1740,6 +1712,72 @@ FIM_PRINT_MURO:
 RET
 
 ENDP PRINTA_SCORE
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+PROC PRINTA_VIDAS
+MOV BX,VIDAS
+MOV CONTADOR_ALIEN,BX;
+MOV I_ALIEN,0;
+CONT_ALIEN4:
+MOV SI, I_ALIEN ; move o indice pra si
+MOV BX, CORACAOX_INICIO[SI] ; pega a posicaox do alien na matriZ
+MOV ALIEN1X, BX ; volta a posicao pra alien
+XOR BX, BX ; zera bx
+ADD I_ALIEN, 2 ; ja prepara o proximo indice
+DEC CONTADOR_ALIEN ; subtrai um do contador de CORACAO 
+
+MOV SI,-1 ; inicia com -1 pra proxima ser 0
+MOV ALIEN1Y,-1 ; mesma coisa
+START5:
+
+	INC ALIEN1X ; incrementa 1 no eixo x
+	INC SI ; incrementa um no si
+	MOV AX,SI ; move pra ax pra fazer a divisao
+	XOR DX, DX ; zera dx
+	IDIV ALIENSIZEX ;para ver se a posição do vetor é multipla do tamanho da linha.
+	CMP DX,0;compara o resto
+	JE PART2_5 ; se for igual pula pra parte dois
+	; a parte doi incremente no eixo y pq quebrou a linha
+	IMPRIME5:
+	CMP SI,383 ; eh final?
+	JG CONTADOR_FINAL4
+	CMP CONTADOR_ALIEN, 0 ; o contado eh 0?
+	JL FIM_PRINTA_VIDAS
+	;;;;
+	CMP CORACAO[SI], 1 ; na matriz de desenho tem 1?
+	JE PRINTACORACAO
+	JMP START5
+	PRINTACORACAO:
+	CALL PRINTA5	
+JMP START5
+PART2_5:
+INC ALIEN1Y ; inc
+PUSH SI ; guarda si
+MOV SI, I_ALIEN ; pega o valor do indice da matriz do eixo x
+SUB SI, 2 ; como add dois anteriormente, subtrai 2 agora
+MOV BX, CORACAOX_INICIO[SI] ; mesma coisa
+MOV ALIEN1X, BX
+XOR BX, BX
+POP SI ; pega si de volta
+JMP IMPRIME5
+
+CONTADOR_FINAL4:
+JMP CONT_ALIEN4
+
+FIM_PRINTA_VIDAS:
+
+RET
+ENDP PRINTA_VIDAS
+
+
+
+
+
+
 
 
 
